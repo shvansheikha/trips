@@ -12,8 +12,7 @@ const props = defineProps({
     'tasks': Array,
     'trips': Array,
     'drivers': Array,
-    'trucks': Array,
-    'notSelectedTasks': Array,
+    'trucks': Array
 })
 
 const createTripModal = ref(false);
@@ -51,7 +50,6 @@ const closeModal = () => {
                 v-if="createTripModal"
                 :drivers="drivers"
                 :trucks="trucks"
-                :notSelectedTasks="notSelectedTasks"
                 @close="closeModal"
             />
         </Modal>

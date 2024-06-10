@@ -5,13 +5,11 @@ import TextInput from "@/Components/TextInput.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Dropdown from "primevue/dropdown";
-import MultiSelect from "primevue/multiselect";
 import TextArea from "primevue/textarea";
 
 const props = defineProps({
     drivers: Array,
-    trucks: Array,
-    notSelectedTasks: Array
+    trucks: Array
 });
 
 const emit = defineEmits(['close']);
@@ -20,15 +18,13 @@ const form = useForm({
     title: '',
     body: '',
     driver: null,
-    truck: null,
-    tasks: null,
+    truck: null
 });
 
 const closeModal = () => {
     emit('close');
 };
 
-const selectedTasks = ref([]);
 const selectedDriver = ref(null);
 const selectedTruck = ref(null);
 const errors = ref({});
@@ -39,10 +35,6 @@ watch(selectedDriver, async (newDriver) => {
 
 watch(selectedTruck, async (newTruck) => {
     form.truck = newTruck.id;
-});
-
-watch(selectedTasks, async (newTask) => {
-    form.tasks = newTask.map(x => x.id);
 });
 
 function submit() {
@@ -116,19 +108,6 @@ function submit() {
                         class="w-full md:w-14rem"
                     />
                     <div v-if="errors.truck" class="text-red-500">{{ errors.truck }}</div>
-                </div>
-
-                <div>
-                    <MultiSelect
-                        v-model="selectedTasks"
-                        :options="notSelectedTasks"
-                        filter
-                        optionLabel="title"
-                        placeholder="Select Tasks"
-                        :maxSelectedLabels="3"
-                        class="w-full bg-white"
-                    />
-                    <div v-if="errors.tasks" class="text-red-500">{{ errors.tasks }}</div>
                 </div>
 
                 <div class="mt-6 flex">

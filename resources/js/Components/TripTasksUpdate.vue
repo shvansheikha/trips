@@ -7,6 +7,7 @@ import Checkbox from 'primevue/checkbox';
 interface DataItem {
     id: number;
     title: string;
+    trip_id: string;
 }
 
 const tasks = ref<DataItem[]>([]);
@@ -20,7 +21,14 @@ const props = defineProps({
 })
 
 const fetchTasks = async () => {
-    axios.get('/tasks').then(response => tasks.value = response.data);
+    axios.get('/tasks?trip=' + props.trip).then(response => {
+        tasks.value = response.data
+        tasks.value.forEach(function (item) {
+            if (item.trip_id == props.trip) {
+                selectedTasks.value.push(item.id)
+            }
+        })
+    });
 };
 
 const selectTasks = async () => {

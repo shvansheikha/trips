@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import {TabGroup, TabList, Tab, TabPanels, TabPanel, TransitionRoot} from '@headlessui/vue'
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import {ref} from "vue";
+import Modal from "@/Components/Modal.vue";
+import TripTasksUpdate from "@/Components/TripTasksUpdate.vue";
 
 interface Task {
     title: string;
@@ -23,6 +27,25 @@ const props = defineProps<{
 }>()
 
 const tabs = props.tabs
+
+const taskEditModal = ref(false);
+const selectedTrip = ref();
+
+const showTaskEditModal = (trip) => {
+    taskEditModal.value = true
+    selectedTrip.value = trip
+};
+
+const closeTaskEditModal = () => {
+    taskEditModal.value = false
+    selectedTrip.value = null
+};
+
+const closeModal = (tasksTitles) => {
+    taskEditModal.value = false
+    selectedTrip.value.tasks = [];
+    tasksTitles.forEach((title) => selectedTrip.value.tasks.push({title: title}));
+};
 
 </script>
 
@@ -68,7 +91,15 @@ const tabs = props.tabs
                                 <span class="text-md text-slate-900 mt-4">{{ tab.body }}</span>
 
                                 <div class="mt-8 border rounded-md bg-gray-50 p-4">
-                                    <span>Tasks:</span>
+                                    <div class="flex w-full justify-between">
+                                        <div class="flex w-full justify-between">
+                                            <span>Tasks:</span>
+                                            <PrimaryButton @click="showTaskEditModal(tab)" :class="'py-1 text-sm'">
+                                                Update Tasks
+                                            </PrimaryButton>
+                                        </div>
+
+                                    </div>
                                     <div v-for="task in tab.tasks"
                                          class="px-2">
                                         - {{ task.title }}
@@ -80,5 +111,9 @@ const tabs = props.tabs
                 </div>
             </TabPanels>
         </TabGroup>
+
+        <Modal :show="taskEditModal" @close="closeTaskEditModal" :max-width="'5xl'">
+            <TripTasksUpdate :trip="selectedTrip.id" @close="closeModal"/>
+        </Modal>
     </div>
 </template>

@@ -10,7 +10,6 @@ const props = defineProps({
         <div v-for="(task , index) in tasks"
              class="py-1 px-2 text-md cursor-pointer w-full hover:bg-gray-100 rounded-md">
             {{ index + 1 }} - {{ task.title }}
-            <span class="text-xs text-blue-600" v-if="task.trip">({{ task.trip.title }})</span>
         </div>
     </div>
 </template>

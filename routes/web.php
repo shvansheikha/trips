@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TripController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('dashboard');
 
     Route::post('/trips/store', [TripController::class, 'store'])->name('trips.store');
+    Route::post('/trips/{trip}/tasks', [TripController::class, 'updateTasks'])->name('trips.tasks.update');
+
+    Route::get('/tasks', [TaskController::class, 'availableTasks'])->name('tasks.available');
 });
 
 Route::middleware('auth')->group(function () {

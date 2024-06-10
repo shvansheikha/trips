@@ -29,17 +29,12 @@ class DashboardController extends Controller
 
         $drivers = Driver::query()->where('user_id', $user->id)->get();
         $trucks = Truck::query()->where('user_id', $user->id)->get();
-        $notSelectedTasks = Task::query()
-            ->where('user_id', $user->id)
-            ->whereNull('trip_id')
-            ->get();
 
         return Inertia::render('Dashboard', [
             'tasks' => $tasks,
             'trips' => $trips,
             'drivers' => $drivers,
             'trucks' => $trucks,
-            'notSelectedTasks' => $notSelectedTasks
         ]);
     }
 }
