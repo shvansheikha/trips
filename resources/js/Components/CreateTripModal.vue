@@ -1,11 +1,11 @@
 <script setup>
 import {ref, watch} from 'vue';
 import {useForm} from '@inertiajs/vue3';
-import TextInput from "@/Components/TextInput.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import Dropdown from "primevue/dropdown";
 import TextArea from "primevue/textarea";
+import InputText from 'primevue/inputtext';
+import Select from 'primevue/select';
 
 const props = defineProps({
     drivers: Array,
@@ -61,7 +61,7 @@ function submit() {
 
                 <div class="mb-4">
                     <label for="trip-title" class="text-gray-700">Trip title:</label>
-                    <TextInput
+                    <InputText
                         id="trip-title"
                         type="text"
                         class="mt-1 block w-full outline-none focus:ring-0 rounded-md"
@@ -83,7 +83,7 @@ function submit() {
                 </div>
 
                 <div class="mb-4">
-                    <Dropdown
+                    <Select
                         id="drivers"
                         :options="drivers"
                         optionLabel="name"
@@ -97,7 +97,7 @@ function submit() {
                 </div>
 
                 <div class="mb-4">
-                    <Dropdown
+                    <Select
                         id="trucks"
                         :options="trucks"
                         optionLabel="title"

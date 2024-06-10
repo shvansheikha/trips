@@ -60,7 +60,7 @@ onMounted(fetchTasks);
             <form @submit.prevent="selectTasks">
                 <div class="flex flex-wrap items-center">
                     <div v-for="task in tasks" :key="task.id"
-                         class="my-1 mx-3 flex justify-content-center gap-1 items-center py-1">
+                         class="my-1 mx-3 flex justify-content-center items-center py-1">
                         <Checkbox :class="'border rounded-md'"
                                   :inputId="`task-${task.id}`"
                                   :value="task.id"
