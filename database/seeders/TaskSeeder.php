@@ -2,24 +2,23 @@
 
 namespace Database\Seeders;
 
-use App\Models\Truck;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class TruckSeeder extends Seeder
+class TaskSeeder extends Seeder
 {
-
     public function run(): void
     {
         $user = User::query()
             ->where('email', 'shvansheikha@gmail.com')
             ->first();
 
-        Truck::factory()
-            ->count(10)
+        Task::factory()
+            ->count(50)
             ->for($user)
-            ->sequence(fn($sequence) => ['title' => 'Truck #' . $sequence->index])
+            ->sequence(fn($sequence) => ['title' => "task #" . $sequence->index + 1])
             ->create();
     }
 }

@@ -12,14 +12,15 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $user = User::factory()->create([
+        User::factory()->create([
             'name' => 'shvan sheikha',
             'email' => 'shvansheikha@gmail.com',
         ]);
 
-        Task::factory()
-            ->count(50)
-            ->for($user)
-            ->create();
+        $this->call([
+            TaskSeeder::class,
+            DriverSeeder::class,
+            TruckSeeder::class
+        ]);
     }
 }

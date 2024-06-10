@@ -18,6 +18,7 @@ class DriverSeeder extends Seeder
         Driver::factory()
             ->count(10)
             ->for($user)
+            ->sequence(fn($sequence) => ['name' => 'Driver #' . $sequence->index])
             ->create();
     }
 }
