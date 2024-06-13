@@ -3,9 +3,10 @@ import {ref, watch} from 'vue';
 import {useForm} from '@inertiajs/vue3';
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import TextArea from "primevue/textarea";
+import Textarea from 'primevue/textarea';
 import InputText from 'primevue/inputtext';
 import Select from 'primevue/select';
+import Button from 'primevue/button';
 
 const props = defineProps({
     drivers: Array,
@@ -51,7 +52,7 @@ function submit() {
 </script>
 
 <template>
-    <div class="p-6">
+    <div class="p-6 text-sm">
         <h2 class="text-lg font-medium text-gray-900">
             Create New Trip
         </h2>
@@ -64,17 +65,19 @@ function submit() {
                     <InputText
                         id="trip-title"
                         type="text"
-                        class="mt-1 block w-full outline-none focus:ring-0 rounded-md"
+                        class="mt-1 block w-full"
                         v-model="form.title"
+                        size="small"
                     />
+
                     <div v-if="errors.title" class="text-red-500">{{ errors.title }}</div>
                 </div>
 
                 <div class="mb-4">
                     <label for="trip-body" class="text-gray-700">Trip detail:</label>
-                    <TextArea
+                    <Textarea
                         id="trip-body"
-                        class="mt-1 block w-full outline-none focus:ring-0 rounded-md"
+                        class="mt-1 block w-full"
                         autoResize
                         v-model="form.body"
                         rows="5"
@@ -88,33 +91,33 @@ function submit() {
                         :options="drivers"
                         optionLabel="name"
                         placeholder="Select a Driver"
-                        checkmark
-                        :highlightOnSelect="false"
+                        :highlightOnSelect="true"
                         v-model="selectedDriver"
-                        class="w-full md:w-14rem"
+                        class="w-full"
+                        :virtualScrollerOptions="{itemSize: 28 }"
                     />
+
                     <div v-if="errors.driver" class="text-red-500">{{ errors.driver }}</div>
                 </div>
 
                 <div class="mb-4">
                     <Select
                         id="trucks"
+                        class="w-full"
                         :options="trucks"
                         optionLabel="title"
                         placeholder="Select a Truck"
-                        checkmark
-                        :highlightOnSelect="false"
+                        :highlightOnSelect="true"
                         v-model="selectedTruck"
-                        class="w-full md:w-14rem"
+                        :virtualScrollerOptions="{itemSize: 28 }"
                     />
                     <div v-if="errors.truck" class="text-red-500">{{ errors.truck }}</div>
                 </div>
 
                 <div class="mt-6 flex">
                     <SecondaryButton @click="closeModal">Cancel</SecondaryButton>
-                    <PrimaryButton type="submit" class="bg-blue-500 text-white mx-4 px-4 py-2 rounded">
-                        Create Trip
-                    </PrimaryButton>
+
+                    <Button type="submit" label="Create Trip" class="mx-4"/>
                 </div>
             </form>
         </div>

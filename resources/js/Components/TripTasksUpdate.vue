@@ -60,12 +60,12 @@ onMounted(fetchTasks);
             <form @submit.prevent="selectTasks">
                 <div class="flex flex-wrap items-center">
                     <div v-for="task in tasks" :key="task.id"
-                         class="my-1 mx-3 flex justify-content-center items-center py-1">
-                        <Checkbox :class="'border rounded-md'"
+                         class="my-1 mx-3 flex justify-content-center items-center py-1 cursor-pointer">
+                        <Checkbox :class="'border rounded-md cursor-pointer'"
                                   :inputId="`task-${task.id}`"
                                   :value="task.id"
                                   v-model="selectedTasks"/>
-                        <label :for="`task-${task.id}`" class="ml-2">{{ task.title }}</label>
+                        <label :for="`task-${task.id}`" class="ml-1 cursor-pointer">{{ task.title }}</label>
                     </div>
                 </div>
 
